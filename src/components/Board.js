@@ -3,12 +3,12 @@ import Square from './Square';
 
 let player1Turn = true;
 function Board (props) {
-    const {board, setBoard} = props;
+    const {board, setBoard, isGameOver} = props;
     // const [board, setBoard] = useState(props.board);
 
     const makeMove = (id) => {
         let newBoard = board.slice();
-        if(board[id] !== null) return;
+        if(board[id] !== null || isGameOver) return;
         newBoard[id] = player1Turn ? 'X' : 'O';
         player1Turn = !player1Turn;
         setBoard(newBoard);
