@@ -7,7 +7,7 @@ function RedoButtons (props) {
         <>
         {history[0] !== undefined ?  
         history.map((bs,i) => {
-            return <button onClick={() => redo(i, bs)}>{`Go To #${i}`}</button>
+            return <button className="redoButton" onClick={() => redo(i, bs)}>{`Go To #${i}`}</button>
         })
         :
         ''

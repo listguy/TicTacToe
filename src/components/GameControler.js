@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import Board from './Board';
-import RedoButtons from './redoButtons';
+import RedoButtons from './RedoButtons';
 
 const history = [];
 
 function GameControler() {
     const [board, setBoard] = useState(new Array(9).fill(null));
-
+    let player1Turn = (history.length % 2 === 0);
+    
     useEffect(()=> {
         history.push(board);
         console.log(history)
@@ -43,21 +44,28 @@ function GameControler() {
     }    
     return (
         <>
-        <h1>Welcome</h1>
+        <h1 id="header">Welcome</h1>
+        <div id="info">
         {isGameOver() ?
         (calculateWinner(board)[0] ?
         <h2>Winner is: {calculateWinner(board)[1]}</h2>
         :
         <h2>Game Over</h2>)
         :
-        ''
+        <h2>{`${player1Turn ? 'X' : 'O'} Turn`} </h2>
         }
-        <div id="board">
-        <Board board={board} setBoard={setBoard} isGameOver={isGameOver()}/>
         </div>
-        <div id="redoButtons">
+        <section id="main">
+          <div>
+          </div>
+          <div id="board">
+          <Board board={board} setBoard={setBoard} player1Turn={player1Turn} isGameOver={isGameOver()}/>
+          </div>
+          <div id="redoButtons">
             <RedoButtons history={history} redo={jumpTo}/>
-        </div>
+          </div>
+        
+        </section>
         </>
     );
 }

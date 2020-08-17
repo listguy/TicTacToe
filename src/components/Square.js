@@ -4,7 +4,11 @@ function Square (props) {
     const {value, onSquareClick, id} = props;
 
     return (
-        <button className="square" onClick={() => onSquareClick(id)}>{value}</button>
+        <div className="square" onClick={() => onSquareClick(id)}>
+            {/* <span className="pawn"> */}
+            {value}
+            {/* </span> */}
+            </div>
     )
 }
 
