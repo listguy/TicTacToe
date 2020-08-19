@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Board from './Board';
 import RedoButtons from './RedoButtons';
+import WinModal from './Modal';
 
 const history = [];
 
@@ -48,7 +49,10 @@ function GameControler() {
         <div id="info">
         {isGameOver() ?
         (calculateWinner(board)[0] ?
-        <h2>Winner is: {calculateWinner(board)[1]}</h2>
+        <>
+        {/* <h2>Winner is: {calculateWinner(board)[0]}</h2> */}
+        <WinModal winner={player1Turn} restartGame={()=>jumpTo(0,history[0])} />
+        </>
         :
         <h2>Game Over</h2>)
         :
