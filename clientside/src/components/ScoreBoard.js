@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from 'react';
+const axios = require('axios');
 
-function ScoreBoard(props) {
+function ScoreBoard() {
     // let scores;
     const [scores, setScores] = useState([]);
     // const [loading, setLoading] = useState(true);
     // let loading = false;
     
-    useEffect(async ()=>{
-        let data = await axios.get('/api/scores');
-        setScores(data);
-    },[]);
+    useEffect(()=>{
+        async function getScores() {
+            const {data} = await axios.get('/api/scores');
+            if(data.length !== scores.length) {
+                console.log("!");
+                setScores(data);
+            }
+        }
+        getScores();
+    },);
 
     return (
-        loading ?
+        scores ?
         scores.map(player => {
-        return <div>{player.JSON.stringify()}</div>
+        return <div>{player.winnerName}</div>
         })
         :
         'loading...'
-    )
-    
+    )  
     
 }
+export default ScoreBoard;

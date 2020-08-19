@@ -13,11 +13,11 @@ let scores = [
 
 ];
 
-app.get('/api/results', (req, res) => {
+app.get('/api/scores', (req, res) => {
     res.send(scores);
 });
 
-app.post('/api/results', (req, res) => {
+app.post('/api/scores', (req, res) => {
     req.body.id = (scores.length + 1).toString();
     scores.push(req.body);
     res.send(req.body);

@@ -22,7 +22,7 @@ export default function WinModal(props) {
         date: winDate,
         duration: "winning time"
     } 
-    axios.post('http://localhost:4000/api/results', winnerObj);
+    axios.post('/api/scores', winnerObj);
     props.restartGame();
     setOpen(false);
   };

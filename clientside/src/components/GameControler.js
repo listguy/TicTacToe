@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Board from './Board';
 import RedoButtons from './RedoButtons';
 import WinModal from './Modal';
+import ScoreBoard from './ScoreBoard';
 
 const history = [];
 
@@ -61,9 +62,10 @@ function GameControler() {
         </div>
         <section id="main">
           <div>
+            <ScoreBoard />
           </div>
           <div id="board">
-          <Board board={board} setBoard={setBoard} player1Turn={player1Turn} isGameOver={isGameOver()}/>
+            <Board board={board} setBoard={setBoard} player1Turn={player1Turn} isGameOver={isGameOver()}/>
           </div>
           <div id="redoButtons">
             <RedoButtons history={history} redo={jumpTo}/>
