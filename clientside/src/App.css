@@ -10,9 +10,9 @@ body {
 
 #main {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 60vw;
-  margin: auto;
+  grid-template-columns: 2fr 1fr 1fr;
+  width: 80vw;
+  margin-top: 10px;
 }
 
 #board {

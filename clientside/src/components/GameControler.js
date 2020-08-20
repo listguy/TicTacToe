@@ -3,18 +3,30 @@ import Board from './Board';
 import RedoButtons from './RedoButtons';
 import WinModal from './Modal';
 import ScoreBoard from './ScoreBoard';
-
-const history = [];
+import Timer from './Timer';
 
 function GameControler() {
     const [board, setBoard] = useState(new Array(9).fill(null));
-    let player1Turn = (history.length % 2 === 0);
+    const [history, setHistory] = useState([board]);
+    const [duration, setDuration] = useState(0);
+    const [player1Turn, setPlayer1Turn] = useState(true);
     
     useEffect(()=> {
-        history.push(board);
-        console.log(history)
+      if(history[0] !== board) {
+        let newHistory = history.slice(0);
+        newHistory.push(board);
+        setHistory(newHistory);
+        setPlayer1Turn(!player1Turn);
+      }
+    },[board])
 
-    },)
+    // useEffect(()=>{
+    //   if(!history[0]) {
+    //     setPlayer1Turn(false);
+    //     return;
+    //   }
+    //   setPlayer1Turn(!player1Turn);
+    // }, [history])
 
     const isGameOver = () => {
         return (board.filter(s => s!== null).length === 9 || calculateWinner(board)[0])
@@ -41,17 +53,22 @@ function GameControler() {
       }
 
     function jumpTo(move, boardState) {
-        history.splice(-(history.length - move));
-        setBoard(boardState);
+      let newHistory = history.slice();
+      newHistory.splice(-(newHistory.length - move));
+      setHistory(newHistory);
     }    
+
+    console.log(history);
     return (
         <>
         <h1 id="header">Welcome</h1>
+        <Timer currentTime={duration} tick={setDuration} />
+        <h3>Game Time: {duration}</h3>
         <div id="info">
         {isGameOver() ?
         (calculateWinner(board)[0] ?
         <>
-        {/* <h2>Winner is: {calculateWinner(board)[0]}</h2> */}
+        <h2>Winner is: {calculateWinner(board)[0]}</h2>
         <WinModal winner={player1Turn} restartGame={()=>jumpTo(0,history[0])} />
         </>
         :
@@ -62,10 +79,10 @@ function GameControler() {
         </div>
         <section id="main">
           <div>
-            <ScoreBoard />
+            <ScoreBoard currentBoard={board}/>
           </div>
           <div id="board">
-            <Board board={board} setBoard={setBoard} player1Turn={player1Turn} isGameOver={isGameOver()}/>
+            <Board board={history[history.length - 1]} setBoard={setBoard} player1Turn={player1Turn} isGameOver={isGameOver()}/>
           </div>
           <div id="redoButtons">
             <RedoButtons history={history} redo={jumpTo}/>

@@ -5,9 +5,9 @@ function RedoButtons (props) {
 
     return (
         <>
-        {history[0] !== undefined ?  
-        history.map((bs,i) => {
-            return <button className="redoButton" onClick={() => redo(i, bs)}>{`Go To #${i}`}</button>
+        {history[1] !== undefined ?  
+        history.slice(1).map((bs,i) => {
+            return <button key={`RB${i}`} className="redoButton" onClick={() => redo(i+1, bs)}>{`Go To #${i}`}</button>
         })
         :
         ''

@@ -14,14 +14,7 @@ function Board (props) {
 
     return (
         <>
-            {/* {[1,2,3].map(i => {
-                return (<li key={`br${i}`} className="board-row">
-                    {[1,2,3].map(j => {
-                        return <Square value={board[j+3*(i-1) - 1]} id={[j+3*(i-1) - 1]} onSquareClick = {makeMove}/>
-                    })}
-                </li>)
-            })} */}
-            {board.map((p,i) => <Square value={board[i]} id={i} onSquareClick = {makeMove}/>)}
+            {board.map((p,i) => <Square key={`square${i}`} value={board[i]} id={i} onSquareClick = {() =>makeMove(i)}/>)}
         </>
     )
 }
