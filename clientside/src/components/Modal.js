@@ -20,7 +20,7 @@ export default function WinModal(props) {
     let winnerObj = {
         winnerName: name,
         date: winDate,
-        duration: "winning time"
+        duration: props.duration
     } 
     axios.post('/api/scores', winnerObj);
     props.restartGame();
@@ -33,14 +33,15 @@ export default function WinModal(props) {
         <DialogTitle id="form-dialog-title">Congratulations {winner}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            You is the winner! Please enter your name, that will be added to the holy scoreboard
+            You are the winner! Please enter your name, that will be added to the holy scoreboard.<br/>
+            <b>Game duration:</b> {props.duration} sec
           </DialogContentText>
           <TextField
             margin="dense"
             id="name"
             label="Your name"
             type="text"
-            onChange={(e)=>name = e.target.value}
+            onChange={(e)=> name = e.target.value}
           />
         </DialogContent>
         <DialogActions>

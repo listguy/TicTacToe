@@ -1,11 +1,17 @@
 const express = require('express');
+const path = require('path');
 const fs = require('fs').promises;
 const app = express();
 
 // const scores = [];
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, '../clientside/build')))
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 
 app.get('/api/scores', async (req, res) => {
     const data = await fs.readFile('./records.json')

@@ -56,30 +56,41 @@ function GameControler() {
       let newHistory = history.slice();
       newHistory.splice(-(newHistory.length - move));
       setHistory(newHistory);
-    }    
+    }   
+    
+    const restartGame = () => {
+      let newBoard = new Array(9).fill(null);
+      setHistory([newBoard]);
+      setBoard(newBoard);
+      setPlayer1Turn(true);
+      setDuration(0);
+    }
 
-    console.log(history);
     return (
         <>
         <h1 id="header">Welcome</h1>
-        <Timer currentTime={duration} tick={setDuration} />
         <h3>Game Time: {duration}</h3>
         <div id="info">
+        <Timer currentTime={duration} tick={setDuration} stopTimer={isGameOver()} />
         {isGameOver() ?
         (calculateWinner(board)[0] ?
         <>
         <h2>Winner is: {calculateWinner(board)[0]}</h2>
-        <WinModal winner={player1Turn} restartGame={()=>jumpTo(0,history[0])} />
+        <WinModal winner={player1Turn} duration={duration} restartGame={restartGame} />
         </>
         :
-        <h2>Game Over</h2>)
+        <>
+        <h2><b>Draw</b></h2>
+        {setTimeout(restartGame,1000)}
+        </>
+        )
         :
         <h2>{`${player1Turn ? 'X' : 'O'} Turn`} </h2>
         }
         </div>
         <section id="main">
           <div>
-            <ScoreBoard currentBoard={board}/>
+            <ScoreBoard currentBoard={board} duration={duration}/>
           </div>
           <div id="board">
             <Board board={history[history.length - 1]} setBoard={setBoard} player1Turn={player1Turn} isGameOver={isGameOver()}/>

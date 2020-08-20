@@ -1,11 +1,13 @@
 import React from 'react';
 
 function Timer(props) {
-    const {currentTime, tick} = props;
+    const {currentTime, tick, stopTimer} = props;
 
-    setTimeout(()=>{
-        tick(currentTime +1);
-    }, 1000);
+    if (!stopTimer) {
+        setTimeout(()=>{
+            tick(currentTime +1);
+        }, 1000);
+    }
 
     return (
         <>

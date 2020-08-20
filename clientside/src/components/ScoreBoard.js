@@ -3,7 +3,7 @@ const axios = require('axios');
 
 function ScoreBoard(props) {
     const [scores, setScores] = useState([]);
-    const {currentBoard} = props;
+    const {duration} = props;
     
     useEffect(()=>{
         async function getScores() {
@@ -12,8 +12,9 @@ function ScoreBoard(props) {
                 setScores(data);
             }
         }
-        if(currentBoard.every(v => v === null))
+        if(duration === 0)
         {
+            console.log("fetching");
             getScores();
         }
     },);
@@ -21,7 +22,7 @@ function ScoreBoard(props) {
     return (
         scores ?
         scores.map((player, i) => {
-        return <li key={`sb${i}`}>{`Name: ${player.winnerName}, Date: ${player.date}, Duration: ${player.duration}`}</li>
+        return <li key={`sb${i}`}>{`Name: ${player.winnerName}, Date: ${player.date}, Duration: ${player.duration} sec`}</li>
         })
         :
         'loading...'
