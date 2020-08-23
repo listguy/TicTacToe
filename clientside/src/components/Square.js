@@ -1,15 +1,13 @@
-import React from 'react';
+import React from "react";
 
-function Square (props) {
-    const {value, onSquareClick, id} = props;
+function Square(props) {
+  const { value, onSquareClick, id } = props;
 
-    return (
-        <div className="square" onClick={() => onSquareClick(id)}>
-            {/* <span className="pawn"> */}
-            {value}
-            {/* </span> */}
-            </div>
-    )
+  return (
+    <div id={id} className="square" onClick={() => onSquareClick(id)}>
+      {value}
+    </div>
+  );
 }
 
 export default Square;

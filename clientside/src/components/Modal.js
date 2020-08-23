@@ -15,16 +15,21 @@ export default function WinModal(props) {
   const winDate = `${date.toISOString().substring(0, 10)} ${date.toString().substring(16, 24)}`;
   let name = '';
 
-  const handleClose = () => {
+  const handleClose = async () => {
     if (!/[a-zA-Z]+/.test(name)) return;
     let winnerObj = {
         winnerName: name,
         date: winDate,
         duration: props.duration
     } 
-    axios.post('/api/scores', winnerObj);
-    props.restartGame();
+    try {
+      await axios.post('/api/scores', winnerObj);
+      console.log("posted successfully");
+    } catch (e) {
+      alert(`${e} error has occurred`)
+    }
     setOpen(false);
+    props.restartGame();
   };
 
   return (

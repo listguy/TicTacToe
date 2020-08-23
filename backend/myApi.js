@@ -1,9 +1,8 @@
 const express = require('express');
 const path = require('path');
+const { json } = require('express');
 const fs = require('fs').promises;
 const app = express();
-
-// const scores = [];
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../clientside/build')))
@@ -15,8 +14,15 @@ app.get('/', function (req, res) {
 
 app.get('/api/scores', async (req, res) => {
     const data = await fs.readFile('./records.json')
-    const json = JSON.parse(data);
-    res.send(json);
+    try{
+        const json = JSON.parse(data);
+        console.log(json);
+        res.send(json);
+    } catch (e) {
+        console.log(JSON.parse(e));
+        res.send(JSON.parse(e));
+    }
+
 });
 
 app.post('/api/scores', async (req, res) => {
@@ -29,10 +35,5 @@ app.post('/api/scores', async (req, res) => {
     res.send("sucess");
 
 })
-// app.post('/api/scores', (req, res) => {
-//     req.body.id = (scores.length + 1).toString();
-//     scores.push(req.body);
-//     res.send(req.body);
-// });
 
 app.listen('4000');
