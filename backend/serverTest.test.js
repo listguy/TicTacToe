@@ -18,7 +18,7 @@ describe("Server tests", () => {
     const getRes = await request.get("/api/scores");
     expect(postRes.status).toBe(200);
     expect(getRes.body[1].name).toBe(testPostObj.name);
-    fs.writeFile("testRecords", JSON.stringify([getRes[0]]));
+    fs.writeFile("testRecords.json", JSON.stringify([getRes.body[0]])); // removes test object from testRecords
     done();
   });
 });
